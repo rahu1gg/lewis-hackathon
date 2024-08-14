@@ -5,8 +5,6 @@ export const Route = createFileRoute('/')({
 });
 
 function Index() {
-  console.log('/');
-
   return (
     <div className='p-2'>
       <h3>Welcome Home!</h3>
