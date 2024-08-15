@@ -23,7 +23,8 @@
       },
       "a11y": {
         "useKeyWithClickEvents": "off",
-        "useKeyWithMouseEvents": "off"
+        "useKeyWithMouseEvents": "off",
+        "noSvgWithoutTitle": "off"
       }
     },
     "ignore": ["node_modules"]
@@ -37,7 +38,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "all",
+      "trailingCommas": "all",
       "semicolons": "always",
       "jsxQuoteStyle": "single"
     }
