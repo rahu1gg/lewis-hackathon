@@ -13,7 +13,7 @@ type Action = {
 };
 
 export const useProfile = create<State & Action>((set) => ({
-  name: '',
+  name: 'Rahul Palamarthi',
   password: '',
   confirmPassword: '',
   updateName: (name) => set(() => ({ name: name })),
