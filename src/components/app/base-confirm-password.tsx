@@ -15,7 +15,7 @@ export function BaseConfirmPassword() {
     <div ref={constraintsRef} className='flex items-stretch justify-start min-h-screen overflow-hidden'>
       <ModeToggle />
       <ConfirmPasswordForm />
-      {PASSWORD_CHARACTERS.map((character) => {
+      {PASSWORD_CHARACTERS.filter((c) => c.comp !== null).map((character) => {
         const [dragging, setDragging] = React.useState(false);
         const coordinatesRef = React.useRef(generateRandomCoordinates());
         const { x, y } = coordinatesRef.current;
@@ -43,14 +43,14 @@ export function BaseConfirmPassword() {
           >
             <GripVertical className='text-muted-foreground hover:cursor-grab group-data-[dragging=true]:cursor-grabbing' size={16} />
             <motion.div
-              className='bg-muted/80 rounded-md p-1 hover:cursor-pointer'
+              className={`rounded-md p-1 hover:cursor-pointer ${character.id > 200 ? 'bg-foreground/80 text-muted' : 'bg-muted/80 text-foreground'}`}
               onDragStart={(e) => {
                 // @ts-ignore
                 e.dataTransfer.setData('cardId', character.id);
               }}
               draggable='true'
             >
-              <character.comp className='size-6 text-foreground' />
+              <character.comp className='size-6' />
             </motion.div>
           </motion.div>
         );

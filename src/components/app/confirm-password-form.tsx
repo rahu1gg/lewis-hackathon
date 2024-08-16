@@ -1,6 +1,7 @@
 import { useCharacterHelpers } from '@/client/store/use-character-helpers.store';
 import { useProfile } from '@/client/store/use-form.store';
 import { Label } from '@/components/ui/label';
+import { motion } from 'framer-motion';
 import React from 'react';
 import { toast } from 'sonner';
 import { PASSWORD_CHARACTERS } from '../../constants/confirm-password-characters';
@@ -32,6 +33,11 @@ export function ConfirmPasswordForm() {
       case 'capslk':
         updateCapsLock();
         break;
+      case 'signin':
+        toast.warning('User already exists', {
+          closeButton: true,
+        });
+        break;
 
       default:
         setConfirmPassword((prev) => prev + letter.character);
@@ -52,14 +58,12 @@ export function ConfirmPasswordForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (confirmPassword === profile.password) {
-      toast.warning('User already exists', {
-        closeButton: true,
-      });
+    if (confirmPassword !== profile.password) {
+      toast.error('Password and Confirm password should match', { closeButton: true });
       return;
     }
 
-    toast.error('Password and Confirm password should match', { closeButton: true });
+    toast.info('Drag and drop the Sign in btn to the input field', { closeButton: true });
   }
 
   return (
@@ -92,9 +96,24 @@ export function ConfirmPasswordForm() {
           </div>
         </div>
         <div>
-          <Button size='lg' type='submit'>
-            Sign in
-          </Button>
+          {profile.password === confirmPassword ? (
+            <motion.div
+              className='w-max'
+              onDragStart={(e) => {
+                // @ts-ignore
+                e.dataTransfer.setData('cardId', '203');
+              }}
+              draggable='true'
+            >
+              <Button size='lg' type='submit'>
+                Sign in
+              </Button>
+            </motion.div>
+          ) : (
+            <Button size='lg' type='submit'>
+              Sign in
+            </Button>
+          )}
         </div>
       </form>
     </div>

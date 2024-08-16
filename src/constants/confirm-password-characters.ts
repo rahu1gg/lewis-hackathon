@@ -376,4 +376,9 @@ export const PASSWORD_CHARACTERS = [
     character: 'capslk',
     comp: helperCharacters.capslk,
   },
+  {
+    id: 203,
+    character: 'signin',
+    comp: null,
+  },
 ];
