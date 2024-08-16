@@ -17,10 +17,19 @@ export function ConfirmPasswordForm() {
     e.preventDefault();
 
     const id = e.dataTransfer.getData('cardId');
+    const helperCharacterIndex = PASSWORD_CHARACTERS.filter((c) => c.id > 200).map((c) => c.id.toString());
     const letter = PASSWORD_CHARACTERS.find((c) => c.id.toString() === id);
+    if (!letter) return;
 
     setActive(false);
-    if (!letter) return;
+
+    if (helperCharacterIndex.includes(id)) {
+      if (letter.character === 'backspace') {
+        setConfirmPassword((prev) => prev.slice(0, -1));
+      }
+
+      return;
+    }
 
     setConfirmPassword((prev) => prev + letter.character);
     setShowConfirmPassword(false);

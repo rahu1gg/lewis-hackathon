@@ -1,3 +1,4 @@
+import { helperCharacters } from './helper-characters';
 import { lowercaseLetters } from './lowercase-characters';
 import { numbers } from './numeric-characters';
 import { uppercaseLetters } from './uppercase-characters';
@@ -312,5 +313,10 @@ export const PASSWORD_CHARACTERS = [
     id: 62,
     character: '0',
     comp: numbers.zero,
+  },
+  {
+    id: 201,
+    character: 'backspace',
+    comp: helperCharacters.backspace,
   },
 ];
