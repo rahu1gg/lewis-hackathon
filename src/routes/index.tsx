@@ -1,6 +1,6 @@
 import { useProfile } from '@/client/store/use-form.store';
 import { BaseConfirmPassword } from '@/components/app/base-confirm-password';
-import { BaseSignIn } from '@/components/app/base-sign-in';
+import { BaseSignUp } from '@/components/app/base-sign-up';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -9,8 +9,15 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   const tab = useProfile((state) => state.tab);
+  const updateTab = useProfile((state) => state.updateTab);
 
-  if (tab === 'signup') return <BaseSignIn />;
-
-  return <BaseConfirmPassword />;
+  return (
+    <div className='py-20'>
+      <div className='flex items-center justify-center gap-1.5 max-w-[500px] mx-auto'>
+        <button type='button' className='w-full h-1.5 rounded-full bg-primary hover:bg-primary/80 duration-200' onClick={() => updateTab('signup')} />
+        <button type='button' className='w-full h-1.5 rounded-full bg-primary disabled:bg-muted duration-200' disabled={tab === 'signup'} />
+      </div>
+      {tab === 'confirm-password' ? <BaseConfirmPassword /> : <BaseSignUp />}
+    </div>
+  );
 }

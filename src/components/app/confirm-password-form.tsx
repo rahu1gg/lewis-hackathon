@@ -63,7 +63,7 @@ export function ConfirmPasswordForm() {
   }
 
   return (
-    <div className='max-w-[500px] mx-auto w-full py-20'>
+    <div className='max-w-[500px] mx-auto w-full'>
       <div className='py-6'>
         <h2 className='text-2xl font-bold'>Hi {profile.name}</h2>
         <p className='text-muted-foreground text-sm mt-1.5'>Confirm your password to continue.</p>

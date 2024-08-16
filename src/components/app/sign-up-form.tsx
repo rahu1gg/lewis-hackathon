@@ -16,8 +16,10 @@ const formSchema = z.object({
   password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
 });
 
-export function SignInForm() {
+export function SignUpForm() {
   const [loading, setLoading] = React.useState(false);
+  const username = useProfile((state) => state.name);
+  const password = useProfile((state) => state.password);
   const updateName = useProfile((state) => state.updateName);
   const updatePassword = useProfile((state) => state.updatePassword);
   const updateTab = useProfile((state) => state.updateTab);
@@ -26,8 +28,8 @@ export function SignInForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
-      password: '',
+      username,
+      password,
     },
   });
 
