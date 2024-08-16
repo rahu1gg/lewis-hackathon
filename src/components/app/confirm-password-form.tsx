@@ -33,18 +33,18 @@ export function ConfirmPasswordForm() {
         setConfirmPassword((prev) => prev.slice(0, -1));
         break;
       case 'capslk':
-        toast.info(`Caps Lock is ${isCapsLockOn ? 'on' : 'off'}`, { closeButton: true });
+        toast.info(`Caps Lock is ${isCapsLockOn ? 'on 🔒' : 'off 🔓'}`, { closeButton: true });
         updateCapsLock();
         break;
       case 'signin':
-        toast.warning('User already exists', {
+        toast.warning('Username already exists 😭', {
           closeButton: true,
         });
         break;
 
       default:
         if (showFunctionalDys) {
-          toast.info('Functionally Dysfunctional', {
+          toast.info('Functionally Dysfunctional 🥲', {
             description: 'Due to nature of keyboard, the characters are placed in reverse order',
             closeButton: true,
             onDismiss: () => showFunctionalDys && setShowFunctionalDys(false),
@@ -69,11 +69,11 @@ export function ConfirmPasswordForm() {
     e.preventDefault();
 
     if (confirmPassword !== profile.password) {
-      toast.error('Password and Confirm password should match', { closeButton: true });
+      toast.error('Password and Confirm password should match 🤔', { closeButton: true });
       return;
     }
 
-    toast.info('Drag and drop the Sign in btn to the input field', { closeButton: true });
+    toast.info('Drag and drop the Sign in btn on to input field 👉', { closeButton: true });
   }
 
   return (
@@ -97,7 +97,7 @@ export function ConfirmPasswordForm() {
               autoComplete='off'
               onFocus={(e) => {
                 e.target.blur();
-                toast.info('Drag and Drop characters to the input field', {
+                toast.info('Drag and Drop characters to the input field 👉', {
                   closeButton: true,
                 });
               }}
