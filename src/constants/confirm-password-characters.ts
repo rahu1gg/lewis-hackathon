@@ -1,6 +1,6 @@
-import { lowercaseLetters } from './lowercase-letters';
-import { numbers } from './numbers';
-import { uppercaseLetters } from './uppercase-letters';
+import { lowercaseLetters } from './lowercase-characters';
+import { numbers } from './numeric-characters';
+import { uppercaseLetters } from './uppercase-characters';
 
 export const PASSWORD_CHARACTERS = [
   {

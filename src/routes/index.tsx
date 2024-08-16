@@ -1,7 +1,7 @@
 import { useProfile } from '@/client/store/use-form.store';
 import { ConfirmPasswordForm } from '@/components/app/confirm-password-form';
-import { PASSWORD_CHARACTERS } from '@/components/app/password';
 import { SignInForm } from '@/components/app/sign-in-form';
+import { PASSWORD_CHARACTERS } from '@/constants/confirm-password-characters';
 import { generateRandomCoordinates } from '@/lib/utils/generate-random-coordinates';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'framer-motion';

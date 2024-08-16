@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ShowPasswordIcon } from '../globals/show-password-icon';
 
 const formSchema = z.object({
   username: z
@@ -20,6 +21,7 @@ export function SignInForm() {
   const updateName = useProfile((state) => state.updateName);
   const updatePassword = useProfile((state) => state.updatePassword);
   const updateTab = useProfile((state) => state.updateTab);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,9 +63,13 @@ export function SignInForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder='Enter your password' type='password' {...field} autoComplete='off' />
-              </FormControl>
+              <div className='relative'>
+                <FormControl>
+                  <Input placeholder='Enter your password' type={showPassword ? 'text' : 'password'} {...field} autoComplete='off' />
+                </FormControl>
+                <ShowPasswordIcon showPassword={showPassword} setShowPassword={setShowPassword} />
+              </div>
+              <FormMessage />
               <FormMessage />
             </FormItem>
           )}

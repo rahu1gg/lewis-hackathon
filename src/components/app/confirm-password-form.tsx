@@ -2,14 +2,16 @@ import { useProfile } from '@/client/store/use-form.store';
 import { Label } from '@/components/ui/label';
 import React from 'react';
 import { toast } from 'sonner';
+import { PASSWORD_CHARACTERS } from '../../constants/confirm-password-characters';
+import { ShowPasswordIcon } from '../globals/show-password-icon';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { PASSWORD_CHARACTERS } from './password';
 
 export function ConfirmPasswordForm() {
   const profile = useProfile((state) => state);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [active, setActive] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
   function handleDragEnd(e: React.DragEvent) {
     e.preventDefault();
@@ -21,6 +23,7 @@ export function ConfirmPasswordForm() {
     if (!letter) return;
 
     setConfirmPassword((prev) => prev + letter.character);
+    setShowConfirmPassword(false);
   }
 
   function handleDragOver(e: React.DragEvent) {
@@ -53,16 +56,19 @@ export function ConfirmPasswordForm() {
       <form onSubmit={handleSubmit} className='space-y-4'>
         <div className='space-y-2'>
           <Label htmlFor='confirm-password'>Confirm Password</Label>
-          <div className='w-full h-12' data-drag={active} onDrop={handleDragEnd} onDragOver={handleDragOver} onDragLeave={handleDragLeave}>
+          <div className='relative' data-drag={active} onDrop={handleDragEnd} onDragOver={handleDragOver} onDragLeave={handleDragLeave}>
             <Input
               id='confirm-password'
               placeholder='Enter your password'
               className='data-[drag=true]:bg-white data-[drag=true]:placeholder:text-background data-[drag=true]:text-background duration-300'
               value={confirmPassword}
               data-drag={active}
+              type={showConfirmPassword ? 'text' : 'password'}
               onKeyDown={() => toast.info('Drag and Drop characters to the input field')}
               onChange={() => {}}
+              autoComplete='off'
             />
+            <ShowPasswordIcon showPassword={showConfirmPassword} setShowPassword={setShowConfirmPassword} />
           </div>
         </div>
         <div>
