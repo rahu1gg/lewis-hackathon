@@ -40,7 +40,7 @@ export function BaseConfirmPassword() {
               }}
               draggable='true'
             >
-              <character.comp className='size-6' />
+              <character.comp className='size-6 text-foreground' />
             </motion.div>
           </motion.div>
         );

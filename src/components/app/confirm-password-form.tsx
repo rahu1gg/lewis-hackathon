@@ -60,7 +60,7 @@ export function ConfirmPasswordForm() {
             <Input
               id='confirm-password'
               placeholder='Enter your password'
-              className='data-[drag=true]:bg-neutral-700 data-[drag=true]:text-background duration-300'
+              className='dark:data-[drag=true]:bg-neutral-700 data-[drag=true]:bg-neutral-200 data-[drag=true]:text-background duration-300'
               value={confirmPassword}
               data-drag={active}
               type={showConfirmPassword ? 'text' : 'password'}
