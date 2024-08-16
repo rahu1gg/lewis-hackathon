@@ -1,3 +1,4 @@
+import { useCharacterHelpers } from '@/client/store/use-character-helpers.store';
 import { ConfirmPasswordForm } from '@/components/app/confirm-password-form';
 import { PASSWORD_CHARACTERS } from '@/constants/confirm-password-characters';
 import { generateRandomCoordinates } from '@/lib/utils/generate-random-coordinates';
@@ -8,6 +9,7 @@ import { ModeToggle } from '../globals/theme-toggle';
 
 export function BaseConfirmPassword() {
   const constraintsRef = React.useRef<HTMLDivElement>(null);
+  const isCapsLockOn = useCharacterHelpers((state) => state.isCapsLockOn);
 
   return (
     <div ref={constraintsRef} className='flex items-stretch justify-start min-h-screen overflow-hidden'>
@@ -17,6 +19,14 @@ export function BaseConfirmPassword() {
         const [dragging, setDragging] = React.useState(false);
         const coordinatesRef = React.useRef(generateRandomCoordinates());
         const { x, y } = coordinatesRef.current;
+
+        if (character.type === 'uppercase' && !isCapsLockOn) {
+          return null;
+        }
+
+        if (character.type === 'lowercase' && isCapsLockOn) {
+          return null;
+        }
 
         return (
           <motion.div

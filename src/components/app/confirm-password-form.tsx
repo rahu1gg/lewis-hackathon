@@ -1,3 +1,4 @@
+import { useCharacterHelpers } from '@/client/store/use-character-helpers.store';
 import { useProfile } from '@/client/store/use-form.store';
 import { Label } from '@/components/ui/label';
 import React from 'react';
@@ -12,27 +13,30 @@ export function ConfirmPasswordForm() {
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [active, setActive] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const updateCapsLock = useCharacterHelpers((state) => state.updateIsCapsLockOn);
 
   function handleDragEnd(e: React.DragEvent) {
     e.preventDefault();
 
     const id = e.dataTransfer.getData('cardId');
-    const helperCharacterIndex = PASSWORD_CHARACTERS.filter((c) => c.id > 200).map((c) => c.id.toString());
+
     const letter = PASSWORD_CHARACTERS.find((c) => c.id.toString() === id);
     if (!letter) return;
 
     setActive(false);
 
-    if (helperCharacterIndex.includes(id)) {
-      if (letter.character === 'backspace') {
+    switch (letter.character) {
+      case 'backspace':
         setConfirmPassword((prev) => prev.slice(0, -1));
-      }
+        break;
+      case 'capslk':
+        updateCapsLock();
+        break;
 
-      return;
+      default:
+        setConfirmPassword((prev) => prev + letter.character);
+        setShowConfirmPassword(false);
     }
-
-    setConfirmPassword((prev) => prev + letter.character);
-    setShowConfirmPassword(false);
   }
 
   function handleDragOver(e: React.DragEvent) {
@@ -49,11 +53,13 @@ export function ConfirmPasswordForm() {
     e.preventDefault();
 
     if (confirmPassword === profile.password) {
-      toast.warning('User already exists');
+      toast.warning('User already exists', {
+        closeButton: true,
+      });
       return;
     }
 
-    toast.error('Password and Confirm password should match');
+    toast.error('Password and Confirm password should match', { closeButton: true });
   }
 
   return (
@@ -69,13 +75,18 @@ export function ConfirmPasswordForm() {
             <Input
               id='confirm-password'
               placeholder='Enter your password'
-              className='dark:data-[drag=true]:bg-neutral-700 data-[drag=true]:bg-neutral-200 data-[drag=true]:text-background duration-300'
+              className='dark:data-[drag=true]:bg-neutral-700 data-[drag=true]:bg-neutral-200 duration-300 font-semibold'
               value={confirmPassword}
               data-drag={active}
               type={showConfirmPassword ? 'text' : 'password'}
-              onKeyDown={() => toast.info('Drag and Drop characters to the input field')}
               onChange={() => {}}
               autoComplete='off'
+              onFocus={(e) => {
+                e.target.blur();
+                toast.info('Drag and Drop characters to the input field', {
+                  closeButton: true,
+                });
+              }}
             />
             <ShowPasswordIcon showPassword={showConfirmPassword} setShowPassword={setShowConfirmPassword} />
           </div>
