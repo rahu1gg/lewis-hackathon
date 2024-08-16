@@ -49,7 +49,7 @@ export function SignInForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder='Enter your username' {...field} />
+                <Input placeholder='Enter your username' {...field} autoComplete='off' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -62,7 +62,7 @@ export function SignInForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder='Enter your password' type='password' {...field} />
+                <Input placeholder='Enter your password' type='password' {...field} autoComplete='off' />
               </FormControl>
               <FormMessage />
             </FormItem>
