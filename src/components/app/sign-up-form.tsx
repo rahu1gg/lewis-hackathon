@@ -13,7 +13,10 @@ const formSchema = z.object({
     .string()
     .min(2, { message: 'Username must be at least 2 characters long' })
     .max(50, { message: 'Username must be at most 50 characters long' }),
-  password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .regex(/^[a-zA-Z0-9]+$/, 'Password can only contain letters and numbers'),
 });
 
 export function SignUpForm() {
@@ -71,7 +74,6 @@ export function SignUpForm() {
                 </FormControl>
                 <ShowPasswordIcon showPassword={showPassword} setShowPassword={setShowPassword} />
               </div>
-              <FormMessage />
               <FormMessage />
             </FormItem>
           )}

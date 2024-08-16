@@ -11,9 +11,11 @@ import { Input } from '../ui/input';
 
 export function ConfirmPasswordForm() {
   const profile = useProfile((state) => state);
-  const [confirmPassword, setConfirmPassword] = React.useState('');
   const [active, setActive] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = React.useState('');
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [showFunctionalDys, setShowFunctionalDys] = React.useState(true);
+  const isCapsLockOn = useCharacterHelpers((state) => state.isCapsLockOn);
   const updateCapsLock = useCharacterHelpers((state) => state.updateIsCapsLockOn);
 
   function handleDragEnd(e: React.DragEvent) {
@@ -31,6 +33,7 @@ export function ConfirmPasswordForm() {
         setConfirmPassword((prev) => prev.slice(0, -1));
         break;
       case 'capslk':
+        toast.info(`Caps Lock is ${isCapsLockOn ? 'on' : 'off'}`, { closeButton: true });
         updateCapsLock();
         break;
       case 'signin':
@@ -40,6 +43,13 @@ export function ConfirmPasswordForm() {
         break;
 
       default:
+        if (showFunctionalDys) {
+          toast.info('Functionally Dysfunctional', {
+            description: 'Due to nature of keyboard, the characters are placed in reverse order',
+            closeButton: true,
+            onDismiss: () => showFunctionalDys && setShowFunctionalDys(false),
+          });
+        }
         setConfirmPassword((prev) => prev + letter.character);
         setShowConfirmPassword(false);
     }

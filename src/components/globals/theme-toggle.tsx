@@ -12,7 +12,12 @@ export function ModeToggle() {
   const { x, y } = coordinatesRef.current;
 
   return (
-    <motion.div initial={{ x, y }} className='absolute p-1 left-0 top-0 flex items-center justify-center gap-1' drag>
+    <motion.div
+      initial={{ x, y, opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.7 } }}
+      className='absolute p-1 left-0 top-0 flex items-center justify-center gap-1'
+      drag
+    >
       <GripVertical className='text-muted-foreground hover:cursor-grab group-data-[dragging=true]:cursor-grabbing' size={16} />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

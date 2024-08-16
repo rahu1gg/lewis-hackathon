@@ -15,7 +15,7 @@ export function BaseConfirmPassword() {
     <div ref={constraintsRef} className='flex items-stretch justify-start min-h-screen overflow-hidden'>
       <ModeToggle />
       <ConfirmPasswordForm />
-      {PASSWORD_CHARACTERS.filter((c) => c.comp !== null).map((character) => {
+      {PASSWORD_CHARACTERS.filter((c) => c.comp !== null).map((character, index) => {
         const [dragging, setDragging] = React.useState(false);
         const coordinatesRef = React.useRef(generateRandomCoordinates());
         const { x, y } = coordinatesRef.current;
@@ -31,7 +31,8 @@ export function BaseConfirmPassword() {
         return (
           <motion.div
             key={character.id}
-            initial={{ x, y }}
+            initial={{ x, y, opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.2, delay: 0.02 * index + 0.5 } }}
             className='w-max pointer-events-auto absolute p-2 left-0 top-0 flex items-center justify-center group'
             data-dragging={dragging}
             whileTap={{ scale: 0.9 }}
