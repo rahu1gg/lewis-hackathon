@@ -9,7 +9,6 @@ export const uppercaseLetters = {
       strokeLinejoin='round'
       {...props}
     >
-      <title> </title>
       <defs />
       <g transform='matrix(1, 0, 0, 1, -949.44, 622.2948)' opacity='1'>
         <g transform='scale(1)'>
